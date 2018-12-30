@@ -1,9 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
+import { addFormData } from '../actions';
 
 export class ContactForm extends React.Component {
     onSubmit(values) {
-        console.log(values)
+        this.props.dispatch(addFormData(values))
     }
     render() {
         return (
@@ -23,6 +25,10 @@ export class ContactForm extends React.Component {
     
 }
 
+export const mapStateToProps = (state) => ({
+    data: state.data
+})
+
 export default reduxForm({
     form: 'contact'
-})(ContactForm);
+})(connect(mapStateToProps)(ContactForm));
